@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monsoomer/screens/authenticate/authenticate.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'managers/file_manager.dart';
@@ -44,10 +45,11 @@ class MonsoomerApp extends StatelessWidget {
                   primaryColor: Colors.deepPurple,
                   /* dark theme settings */
                 ),
-                home: LandingScreen(),
-                initialRoute: LandingScreen.id,
+                home: Authenticate(),
+                initialRoute: Authenticate.id,
                 routes: {
                   LandingScreen.id: (context) => LandingScreen(),
+                  Authenticate.id: (context) => Authenticate(),
                   // LoadingScreen.id: (context) => LoadingScreen(),
                   // LoginScreen.id: (context) => LoginScreen(),
                   // RegistrationScreen.id: (context) => RegistrationScreen(),

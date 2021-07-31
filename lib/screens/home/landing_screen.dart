@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../../widgets/rounded_square_button.dart';
 import 'package:provider/provider.dart';
@@ -13,12 +12,7 @@ class LandingScreen extends StatefulWidget {
 }
 
 class _LandingScreenState extends State<LandingScreen> {
-  //TODO: move sign in/up to different screens once things are setup
-  final _auth = FirebaseAuth.instance;
 
-
-  late String email = 'testing2@email.com';
-  late String password = '123456';
 
   @override
   Widget build(BuildContext context) {
