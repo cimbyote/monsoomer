@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:monsoomer/services/auth_service.dart';
+import 'package:monsoomer/shared/constants.dart';
+import 'package:monsoomer/shared/loading_widget.dart';
 import 'package:monsoomer/widgets/rounded_square_button.dart';
 
 class SignIn extends StatefulWidget {
-
   final Function toggleViewCallback;
-  SignIn({required this.toggleViewCallback});
 
+  SignIn({required this.toggleViewCallback});
 
   @override
   _SignInState createState() => _SignInState();
@@ -15,6 +16,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>(); //used to track state of the form
+  bool loading = false;
 
   //text field state
   String _email = '';
@@ -23,7 +25,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? LoadingWidget() : Scaffold(
       appBar: AppBar(
         elevation: 0.0, //removes drop shadow
         title: Text("Monsoomer Sign In"),
@@ -37,7 +39,6 @@ class _SignInState extends State<SignIn> {
           ),
         ],
       ),
-
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
         child: Form(
@@ -48,11 +49,10 @@ class _SignInState extends State<SignIn> {
                 height: 20,
               ),
               TextFormField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey.shade700,
+                decoration: textInputDecoration.copyWith(
+                  hintText: 'Email',
                 ),
-                validator: (val) => val!.isEmpty ? 'Enter an email': null,
+                validator: (val) => val!.isEmpty ? 'Enter an email' : null,
                 onChanged: (value) {
                   setState(() => _email = value); //same thing just shorter
                   // setState(() {
@@ -65,11 +65,11 @@ class _SignInState extends State<SignIn> {
               ),
               TextFormField(
                 obscureText: true,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey.shade700,
+                decoration: textInputDecoration.copyWith(
+                  hintText: 'Password',
                 ),
-                validator: (val) => val!.length < 6 ? 'Enter a password 6+ chars long': null,
+                validator: (val) =>
+                    val!.length < 6 ? 'Enter a password 6+ chars long' : null,
                 onChanged: (value) {
                   setState(() => _password = value);
                 },
@@ -80,14 +80,19 @@ class _SignInState extends State<SignIn> {
               RoundedSquareButton(
                 buttonText: 'Login',
                 textColor: Colors.white,
-                onPressedCallback: () async{
-                  if(_formKey.currentState!.validate()) //if the "validator" fields are null (null is good here)
-                      {
-                    dynamic result = await _auth.signInWithEmailAndPassword(_email, _password);
-                    if(result == null)
-                    {
+                onPressedCallback: () async {
+                  //if the "validator" fields are null (null is good here)
+                  if (_formKey.currentState!.validate())
+                  {
+                    setState(() {
+                      loading = true;
+                    });
+                    dynamic result = await _auth.signInWithEmailAndPassword(
+                        _email, _password);
+                    if (result == null) {
                       setState(() {
                         _error = 'Could not sign in with those credentials.';
+                        loading = false;
                       });
                     }
                     //NOTE: this will automatically take to home screen because of stream
@@ -97,11 +102,13 @@ class _SignInState extends State<SignIn> {
               SizedBox(
                 height: 12,
               ),
-              Text(_error,
+              Text(
+                _error,
                 style: TextStyle(
                   color: Colors.red,
                   fontSize: 14,
-                ),),
+                ),
+              ),
             ],
           ),
         ),

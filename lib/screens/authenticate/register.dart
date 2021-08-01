@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:monsoomer/services/auth_service.dart';
+import 'package:monsoomer/shared/constants.dart';
+import 'package:monsoomer/shared/loading_widget.dart';
 import 'package:monsoomer/widgets/rounded_square_button.dart';
 
 class Register extends StatefulWidget {
@@ -15,6 +17,7 @@ class _RegisterState extends State<Register> {
 
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>(); //used to track state of the form
+  bool loading = false;
 
   //text field state
   String _email = '';
@@ -23,7 +26,7 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? LoadingWidget() : Scaffold(
       appBar: AppBar(
         elevation: 0.0, //gives dropshadow
         title: Text("Monsoomer Sign Up"),
@@ -47,10 +50,7 @@ class _RegisterState extends State<Register> {
                 height: 20,
               ),
               TextFormField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey.shade700,
-                ),
+                decoration: textInputDecoration.copyWith(hintText: 'Email',),
                 validator: (val) => val!.isEmpty ? 'Enter an email': null,
                 onChanged: (value) {
                   setState(() => _email = value); //same thing just shorter
@@ -64,10 +64,7 @@ class _RegisterState extends State<Register> {
               ),
               TextFormField(
                 obscureText: true,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey.shade700,
-                ),
+                decoration: textInputDecoration.copyWith(hintText: 'Password',),
                 validator: (val) => val!.length < 6 ? 'Enter a password 6+ chars long': null,
                 onChanged: (value) {
                   setState(() => _password = value);
@@ -82,11 +79,15 @@ class _RegisterState extends State<Register> {
                 onPressedCallback: () async{
                   if(_formKey.currentState!.validate()) //if the "validator" fields are null (null is good here)
                     {
+                    setState(() {
+                      loading = true;
+                    });
                       dynamic result = await _auth.registerWithEmailAndPassword(_email, _password);
                       if(result == null)
                         {
                           setState(() {
                             _error = 'Error: ADD DETAILED ERROR MESSAGES';
+                            loading = false;
                           });
                         }
                       //NOTE: this will automatically take to home screen because of stream
