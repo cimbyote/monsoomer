@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:monsoomer/models/user_info_model.dart';
+import 'package:monsoomer/services/database_service.dart';
 
 class AuthService{
 
@@ -17,7 +18,6 @@ class AuthService{
         //.map((User? user) => _userFromFirebaseUser(user));  //same as above
     }
 
-  //TODO:sign in anon
   Future<UserInfoModel?> signInAnon() async
   {
     try{
@@ -32,12 +32,12 @@ class AuthService{
     }
   }
 
-  //TODO:sign in w/ email & password
   Future signInWithEmailAndPassword(String email, String password) async
   {
     try{
       UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
+      
       return _userInfoFromFirebaseUser(user);
     }
     catch(e)
@@ -47,12 +47,15 @@ class AuthService{
     }
   }
 
-  //TODO:register with email & password
   Future registerWithEmailAndPassword(String email, String password) async
   {
     try{
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
+
+      //create a new document for user with the uid with dummy data
+      await DatabaseService(uid: user!.uid).updateUserData('Bulbasaur', 'Grass', 1);
+
       return _userInfoFromFirebaseUser(user);
     }
     catch(e)
@@ -62,8 +65,6 @@ class AuthService{
     }
   }
 
-
-  //TODO:sign out
   Future signOut() async
   {
     try{
