@@ -19,6 +19,7 @@ class _RegisterState extends State<Register> {
   //text field state
   String _email = '';
   String _password = '';
+  String _error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -81,11 +82,25 @@ class _RegisterState extends State<Register> {
                 onPressedCallback: () async{
                   if(_formKey.currentState!.validate()) //if the "validator" fields are null (null is good here)
                     {
-                      print(_email);
-                      print(_password);
+                      dynamic result = await _auth.registerWithEmailAndPassword(_email, _password);
+                      if(result == null)
+                        {
+                          setState(() {
+                            _error = 'Error: ADD DETAILED ERROR MESSAGES';
+                          });
+                        }
+                      //NOTE: this will automatically take to home screen because of stream
                     }
                 },
               ),
+              SizedBox(
+                height: 12,
+              ),
+              Text(_error,
+              style: TextStyle(
+                color: Colors.red,
+                fontSize: 14,
+              ),),
             ],
           ),
         ),

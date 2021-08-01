@@ -29,6 +29,18 @@ class AuthService{
   }
 
   //TODO:sign in w/ email & password
+  Future signInWithEmailAndPassword(String email, String password) async
+  {
+    try{
+      UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      return result.user;
+    }
+    catch(e)
+    {
+      print(e.toString());
+      return null;
+    }
+  }
 
   //TODO:register with email & password
   Future registerWithEmailAndPassword(String email, String password) async
