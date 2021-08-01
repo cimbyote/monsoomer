@@ -30,7 +30,7 @@ class _SettingsFormState extends State<SettingsForm> {
           if (snapshot.hasData) {
             UserData? userData = snapshot.data;
 
-            _currentNumber = userData!.number;
+            _currentNumber = userData!.monster.number;
 
             return Form(
               key: _formKey,
@@ -44,7 +44,7 @@ class _SettingsFormState extends State<SettingsForm> {
                     height: 20,
                   ),
                   TextFormField(
-                    initialValue: userData.name,
+                    initialValue: userData.monster.name,
                     decoration: textInputDecoration,
                     validator: (val) =>
                         val!.isEmpty ? 'Please Enter a name' : null,
@@ -55,7 +55,7 @@ class _SettingsFormState extends State<SettingsForm> {
                   ),
                   DropdownButtonFormField(
                     decoration: textInputDecoration,
-                    value: userData.type,
+                    value: userData.monster.type,
                     items: types.map((type) {
                       return DropdownMenuItem(
                         value: type,
@@ -85,13 +85,13 @@ class _SettingsFormState extends State<SettingsForm> {
                     onPressedCallback: () async {
                       if (_formKey.currentState!.validate()) {
                         if (_currentName == '') {
-                          _currentName = userData.name;
+                          _currentName = userData.monster.name;
                         }
                         if (_currentType == '') {
-                          _currentType = userData.type;
+                          _currentType = userData.monster.type;
                         }
                         if (_currentNumber == 0) {
-                          _currentNumber = userData.number;
+                          _currentNumber = userData.monster.number;
                         }
                         await DatabaseService(uid: user.uid).updateUserData(
                           _currentName,

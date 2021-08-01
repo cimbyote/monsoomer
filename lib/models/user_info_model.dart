@@ -1,3 +1,5 @@
+import 'monster.dart';
+
 class UserInfoModel
 {
   final String uid;
@@ -9,9 +11,7 @@ class UserInfoModel
 class UserData{
 
   final String uid;
-  final String name;
-  final String type;
-  final int number;
+  final Monster monster;
 
-  UserData({required this.uid, required this.name, required this.type, required this.number});
+  UserData({required this.uid, required this.monster,});
 }
