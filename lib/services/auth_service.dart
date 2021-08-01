@@ -1,10 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:monsoomer/models/user_info_model.dart';
 
 class AuthService{
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-
+  UserInfoModel? _userInfoFromFirebaseUser(User? user)
+  {
+    return user != null ? UserInfoModel(uid: user.uid): null;
+  }
 
   //auth change user stream
   //creates the custom data model
@@ -14,12 +18,12 @@ class AuthService{
     }
 
   //TODO:sign in anon
-  Future<User?> signInAnon() async
+  Future<UserInfoModel?> signInAnon() async
   {
     try{
       UserCredential result = await _auth.signInAnonymously();
-      //User? user = result.user;
-      return result.user;
+      User? user = result.user;
+      return _userInfoFromFirebaseUser(user);
     }
     catch (e)
     {
@@ -33,7 +37,8 @@ class AuthService{
   {
     try{
       UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
-      return result.user;
+      User? user = result.user;
+      return _userInfoFromFirebaseUser(user);
     }
     catch(e)
     {
@@ -47,7 +52,8 @@ class AuthService{
   {
     try{
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      return result.user;
+      User? user = result.user;
+      return _userInfoFromFirebaseUser(user);
     }
     catch(e)
     {
