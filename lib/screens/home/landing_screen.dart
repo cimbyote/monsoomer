@@ -4,18 +4,17 @@ import '../../widgets/rounded_square_button.dart';
 import 'package:provider/provider.dart';
 import 'package:monsoomer/managers/file_manager.dart';
 
-class LandingScreen extends StatefulWidget {
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:monsoomer/services/auth_service.dart';
+
+class LandingScreen extends StatelessWidget {
   static const String id = 'landing_screen';
 
   @override
-  _LandingScreenState createState() => _LandingScreenState();
-}
-
-class _LandingScreenState extends State<LandingScreen> {
-
-
-  @override
   Widget build(BuildContext context) {
+
+
+
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),

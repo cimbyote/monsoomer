@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:monsoomer/services/auth_service.dart';
 import 'package:monsoomer/widgets/rounded_square_button.dart';
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
 
   final Function toggleViewCallback;
-  SignIn({required this.toggleViewCallback});
-
+  Register({required this.toggleViewCallback});
 
   @override
-  _SignInState createState() => _SignInState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
+
   final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>(); //used to track state of the form
 
   //text field state
   String _email = '';
@@ -23,11 +24,11 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0.0, //removes drop shadow
-        title: Text("Monsoomer Sign In"),
+        elevation: 0.0, //gives dropshadow
+        title: Text("Monsoomer Sign Up"),
         actions: <Widget>[
           TextButton.icon(
-            label: Text('Register'),
+            label: Text('Sign In'),
             icon: Icon(Icons.person),
             onPressed: () {
               widget.toggleViewCallback();
@@ -35,10 +36,10 @@ class _SignInState extends State<SignIn> {
           ),
         ],
       ),
-
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
         child: Form(
+          key: _formKey,
           child: Column(
             children: <Widget>[
               SizedBox(
@@ -49,6 +50,7 @@ class _SignInState extends State<SignIn> {
                   filled: true,
                   fillColor: Colors.grey.shade700,
                 ),
+                validator: (val) => val!.isEmpty ? 'Enter an email': null,
                 onChanged: (value) {
                   setState(() => _email = value); //same thing just shorter
                   // setState(() {
@@ -65,6 +67,7 @@ class _SignInState extends State<SignIn> {
                   filled: true,
                   fillColor: Colors.grey.shade700,
                 ),
+                validator: (val) => val!.length < 6 ? 'Enter a password 6+ chars long': null,
                 onChanged: (value) {
                   setState(() => _password = value);
                 },
@@ -73,11 +76,14 @@ class _SignInState extends State<SignIn> {
                 height: 20,
               ),
               RoundedSquareButton(
-                buttonText: 'Login',
+                buttonText: 'Register',
                 textColor: Colors.white,
                 onPressedCallback: () async{
-                  print(_email);
-                  print(_password);
+                  if(_formKey.currentState!.validate()) //if the "validator" fields are null (null is good here)
+                    {
+                      print(_email);
+                      print(_password);
+                    }
                 },
               ),
             ],
