@@ -5,7 +5,6 @@ import 'package:monsoomer/services/database_service.dart';
 class AuthService{
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
   UserInfoModel? _userInfoFromFirebaseUser(User? user)
   {
     return user != null ? UserInfoModel(uid: user.uid): null;
@@ -13,9 +12,8 @@ class AuthService{
 
   //auth change user stream
   //creates the custom data model
-  Stream<User?> get user {
-    return _auth.authStateChanges();
-        //.map((User? user) => _userFromFirebaseUser(user));  //same as above
+  Stream<UserInfoModel?> get user {
+    return _auth.authStateChanges().map((User? user) => _userInfoFromFirebaseUser(user));  //same as above
     }
 
   Future<UserInfoModel?> signInAnon() async
@@ -78,6 +76,10 @@ class AuthService{
   }
 
 
-  //TODO: get userID
+  // //TODO: get userID
+  // Stream<User?> get userId {
+  //   return _auth.authStateChanges().uid;
+  // }
+
 
 }

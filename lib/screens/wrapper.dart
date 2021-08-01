@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monsoomer/models/user_info_model.dart';
 
 
 import 'package:monsoomer/screens/authenticate/authenticate.dart';
@@ -19,7 +20,7 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final user = Provider.of<User?>(context);
+    final user = Provider.of<UserInfoModel?>(context);
 
     if(user == null)
       {

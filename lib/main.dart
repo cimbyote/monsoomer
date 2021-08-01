@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monsoomer/models/user_info_model.dart';
 import 'package:monsoomer/screens/authenticate/authenticate.dart';
 import 'package:monsoomer/screens/wrapper.dart';
 
@@ -24,7 +25,7 @@ class MonsoomerApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        StreamProvider<User?>.value(value: AuthService().user, initialData: null,), //initial value will be NULL!!! check for it
+        StreamProvider<UserInfoModel?>.value(value: AuthService().user, initialData: null,), //initial value will be NULL!!! check for it
         ChangeNotifierProvider(create:  (_) => fileManager),
       ],
       child: FutureBuilder(
