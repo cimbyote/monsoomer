@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:monsoomer/models/monster.dart';
 import 'package:provider/provider.dart';
 
+import 'monster_tile.dart';
+
 class MonsterList extends StatefulWidget {
   const MonsterList({Key? key}) : super(key: key);
 
@@ -14,13 +16,12 @@ class _MonsterListState extends State<MonsterList> {
   Widget build(BuildContext context) {
 
     final monsters = Provider.of<List<Monster>>(context);
-    monsters.forEach((monster) {
-      print(monster.name);
-      print(monster.type);
-      print(monster.number);
-    });
 
-    return Container();
+    return ListView.builder(
+      itemCount: monsters.length,
+      itemBuilder: (context, index) {
+        return MonsterTile(monster: monsters[index]);
+      },
+    );
   }
 }
-

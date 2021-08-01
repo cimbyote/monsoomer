@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:monsoomer/models/monster.dart';
+import 'package:monsoomer/models/user_info_model.dart';
 
 class DatabaseService {
 
@@ -31,8 +33,22 @@ class DatabaseService {
     }).toList();
   }
 
+  //userData from snapshot
+  UserData _userDataFromSnapshot(DocumentSnapshot snapshot)
+  {
+    return UserData(uid: uid,
+        name: snapshot.get('name'),
+        type: snapshot.get('type'),
+        number: snapshot.get('number'),
+    );
+  }
+
   //get monster stream
   Stream<List<Monster>> get monsters {
     return monsterCollection.snapshots().map(_monsterListFromSnapshot);
+  }
+
+  Stream<UserData> get userDataStream {
+    return monsterCollection.doc(uid).snapshots().map(_userDataFromSnapshot);
   }
 }
