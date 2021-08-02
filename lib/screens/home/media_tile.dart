@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:monsoomer/models/media_model.dart';
+import 'package:monsoomer/models/media.dart';
 
 class MediaTile extends StatelessWidget {
 

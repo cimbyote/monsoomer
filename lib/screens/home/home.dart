@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:monsoomer/models/media_model.dart';
+import 'package:monsoomer/models/media.dart';
 import 'package:monsoomer/models/user_info_model.dart';
 import 'package:monsoomer/screens/home/settings_form.dart';
 import 'package:monsoomer/services/auth_service.dart';
@@ -20,7 +20,8 @@ class Home extends StatelessWidget {
         builder: (context) {
           return Container(
             padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
-            child: SettingsForm(),
+            // child: SettingsForm(),
+            child: Text("settings form"),
           );
         },
       );
@@ -28,7 +29,7 @@ class Home extends StatelessWidget {
 
     return StreamProvider<UserData>.value(
       value: DatabaseService(uid: Provider.of<UserInfoModel?>(context)!.uid).userDataStream,
-      initialData: UserData(uid: '', media: Media(name: '',type: '',)),
+      initialData: UserData(media: Media(name: '',type: '',)),
       child: Scaffold(
         appBar: AppBar(
           title: Text('Home'),

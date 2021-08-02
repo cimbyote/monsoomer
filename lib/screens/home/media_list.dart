@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:monsoomer/models/media_model.dart';
+import 'package:monsoomer/models/media.dart';
 import 'package:monsoomer/models/user_info_model.dart';
 import 'package:provider/provider.dart';
 

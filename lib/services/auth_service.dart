@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:monsoomer/models/media.dart';
 import 'package:monsoomer/models/user_info_model.dart';
 import 'package:monsoomer/services/database_service.dart';
 
@@ -52,7 +53,10 @@ class AuthService{
       User? user = result.user;
 
       //create a new document for user with the uid with dummy data
-      await DatabaseService(uid: user!.uid).updateUserData('Bulbasaur', 'Grass');
+
+
+      await DatabaseService(uid: user!.uid).updateUserData(UserData(media:Media(name: 'Avengers', type: 'Movie')));
+      await DatabaseService(uid: user.uid).updateUserInfo(UserInfoModel(uid: user.uid));
 
       return _userInfoFromFirebaseUser(user);
     }
