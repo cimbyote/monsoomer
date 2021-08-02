@@ -16,14 +16,12 @@ class _MediaListState extends State<MediaList> {
   @override
   Widget build(BuildContext context) {
 
-    final monsters = Provider.of<UserData>(context);
+    final userData = Provider.of<UserData>(context);
 
     return ListView.builder(
-      //itemCount: monsters.length,
-      itemCount: 1,
+      itemCount: userData.consumedList.length,
       itemBuilder: (context, index) {
-        return MediaTile(media: monsters.media);
-        //return MediaTile(monster: monsters[index]);
+        return MediaTile(media: userData.consumedList[index]);
       },
     );
   }

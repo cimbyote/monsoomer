@@ -18,11 +18,16 @@ Map<String, dynamic> _$UserInfoModelToJson(UserInfoModel instance) =>
     };
 
 UserData _$UserDataFromJson(Map<String, dynamic> json) {
-  return UserData(
-    media: Media.fromJson(json['media'] as Map<String, dynamic>),
-  );
+  return UserData()
+    ..consumedList = (json['consumedList'] as List<dynamic>)
+        .map((e) => Media.fromJson(e as Map<String, dynamic>))
+        .toList()
+    ..wantList = (json['wantList'] as List<dynamic>)
+        .map((e) => Media.fromJson(e as Map<String, dynamic>))
+        .toList();
 }
 
 Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
-      'media': instance.media.toJson(),
+      'consumedList': instance.consumedList.map((e) => e.toJson()).toList(),
+      'wantList': instance.wantList.map((e) => e.toJson()).toList(),
     };

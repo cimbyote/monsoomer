@@ -55,7 +55,7 @@ class AuthService{
       //create a new document for user with the uid with dummy data
 
 
-      await DatabaseService(uid: user!.uid).updateUserData(UserData(media:Media(name: 'Avengers', type: 'Movie')));
+      await DatabaseService(uid: user!.uid).updateUserData(UserData());
       await DatabaseService(uid: user.uid).updateUserInfo(UserInfoModel(uid: user.uid));
 
       return _userInfoFromFirebaseUser(user);

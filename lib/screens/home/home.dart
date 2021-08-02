@@ -29,7 +29,7 @@ class Home extends StatelessWidget {
 
     return StreamProvider<UserData>.value(
       value: DatabaseService(uid: Provider.of<UserInfoModel?>(context)!.uid).userDataStream,
-      initialData: UserData(media: Media(name: '',type: '',)),
+      initialData: UserData(),
       child: Scaffold(
         appBar: AppBar(
           title: Text('Home'),
