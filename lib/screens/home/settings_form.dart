@@ -18,8 +18,6 @@ class _SettingsFormState extends State<SettingsForm> {
   //form values
   late String _currentName = '';
   late String _currentType = '';
-  late int _currentNumber = 0;
-
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserInfoModel?>(context);
@@ -30,7 +28,6 @@ class _SettingsFormState extends State<SettingsForm> {
           if (snapshot.hasData) {
             UserData? userData = snapshot.data;
 
-            _currentNumber = userData!.monster.number;
 
             return Form(
               key: _formKey,
@@ -44,7 +41,7 @@ class _SettingsFormState extends State<SettingsForm> {
                     height: 20,
                   ),
                   TextFormField(
-                    initialValue: userData.monster.name,
+                    initialValue: userData!.media.name,
                     decoration: textInputDecoration,
                     validator: (val) =>
                         val!.isEmpty ? 'Please Enter a name' : null,
@@ -55,7 +52,7 @@ class _SettingsFormState extends State<SettingsForm> {
                   ),
                   DropdownButtonFormField(
                     decoration: textInputDecoration,
-                    value: userData.monster.type,
+                    value: userData.media.type,
                     items: types.map((type) {
                       return DropdownMenuItem(
                         value: type,
@@ -64,17 +61,6 @@ class _SettingsFormState extends State<SettingsForm> {
                     }).toList(),
                     onChanged: (val) =>
                         setState(() => _currentType = val.toString()),
-                  ),
-                  Slider(
-                    activeColor: Theme.of(context).primaryColor,
-                    inactiveColor: Colors.grey.shade400,
-                    min: 0,
-                    max: 850,
-                    divisions: 850,
-                    value: _currentNumber.toDouble(),
-                    onChanged: (val) => setState(
-                      () => _currentNumber = val.round(),
-                    ),
                   ),
                   SizedBox(
                     height: 20,
@@ -85,18 +71,14 @@ class _SettingsFormState extends State<SettingsForm> {
                     onPressedCallback: () async {
                       if (_formKey.currentState!.validate()) {
                         if (_currentName == '') {
-                          _currentName = userData.monster.name;
+                          _currentName = userData.media.name;
                         }
                         if (_currentType == '') {
-                          _currentType = userData.monster.type;
-                        }
-                        if (_currentNumber == 0) {
-                          _currentNumber = userData.monster.number;
+                          _currentType = userData.media.type;
                         }
                         await DatabaseService(uid: user.uid).updateUserData(
                           _currentName,
                           _currentType,
-                          _currentNumber,
                         );
                         Navigator.pop(context);
                       }

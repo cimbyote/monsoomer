@@ -1,4 +1,4 @@
-import 'monster.dart';
+import 'media_model.dart';
 
 class UserInfoModel
 {
@@ -11,7 +11,7 @@ class UserInfoModel
 class UserData{
 
   final String uid;
-  final Monster monster;
+  final Media media;
 
-  UserData({required this.uid, required this.monster,});
+  UserData({required this.uid, required this.media,});
 }

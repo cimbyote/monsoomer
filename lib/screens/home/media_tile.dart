@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:monsoomer/models/monster.dart';
+import 'package:monsoomer/models/media_model.dart';
 
-class MonsterTile extends StatelessWidget {
+class MediaTile extends StatelessWidget {
 
-  final Monster monster;
+  final Media media;
 
-  MonsterTile({required this.monster});
+  MediaTile({required this.media});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +18,8 @@ class MonsterTile extends StatelessWidget {
             radius: 25.0,
             backgroundColor: Colors.red,
           ),
-          title: Text(monster.name + " #"+monster.number.toString()),
-          subtitle: Text(monster.type),
+          title: Text(media.name),
+          subtitle: Text(media.type),
         ),
       ),
     );
