@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:monsoomer/models/media.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:monsoomer/shared/loading_widget.dart';
 
 class MediaTile extends StatelessWidget {
-
   final Media media;
 
   MediaTile({required this.media});
@@ -14,9 +15,17 @@ class MediaTile extends StatelessWidget {
       child: Card(
         margin: EdgeInsets.fromLTRB(20, 6, 20, 0),
         child: ListTile(
-          leading: CircleAvatar(
-            radius: 25.0,
-            backgroundColor: Colors.red,
+          leading: ConstrainedBox(
+            constraints: BoxConstraints(
+              minWidth: 44,
+              minHeight: 64,
+              maxWidth: 50,
+              maxHeight: 74,
+            ),
+            child: CachedNetworkImage(
+              imageUrl: media.imageString,
+              placeholder: (context, url) => LoadingWidget(),
+            ),
           ),
           title: Text(media.name),
           subtitle: Text(media.type),

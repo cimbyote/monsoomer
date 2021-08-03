@@ -50,6 +50,7 @@ class _RegisterState extends State<Register> {
                 height: 20,
               ),
               TextFormField(
+                keyboardType: TextInputType.emailAddress,
                 decoration: textInputDecoration.copyWith(hintText: 'Email',),
                 validator: (val) => val!.isEmpty ? 'Enter an email': null,
                 onChanged: (value) {

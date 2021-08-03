@@ -49,6 +49,7 @@ class _SignInState extends State<SignIn> {
                 height: 20,
               ),
               TextFormField(
+                keyboardType: TextInputType.emailAddress,
                 decoration: textInputDecoration.copyWith(
                   hintText: 'Email',
                 ),

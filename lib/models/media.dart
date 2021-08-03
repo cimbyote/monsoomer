@@ -9,8 +9,12 @@ class Media
 {
   final String name;
   final String type;
+  late String imageString;
 
-  Media({required this.name, required this.type});
+  Media(this.name, this.type)
+  {
+    this.imageString = 'https://m.media-amazon.com/images/I/81OmkfFqvsL._AC_SY741_.jpg';
+  }
 
   factory Media.fromJson(Map<String, dynamic> json) => _$MediaFromJson(json);
   Map<String, dynamic> toJson() => _$MediaToJson(this);
@@ -26,7 +30,7 @@ class ConsumedMedia extends Media
   late DateTime consumedDateTime;
 
   ConsumedMedia(String name, String type, DateTime consumedDateTime)
-      : super(name: name, type: type)
+      : super(name, type)
   {
     addedDateTime = DateTime.now();
     this.consumedDateTime = consumedDateTime;
@@ -43,7 +47,7 @@ class WantedMedia extends Media
   late DateTime addedDateTime;
 
   WantedMedia(String name, String type)
-      : super(name: name, type: type)
+      : super(name, type)
   {
     addedDateTime = DateTime.now();
   }
