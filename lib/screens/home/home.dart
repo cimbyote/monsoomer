@@ -73,10 +73,11 @@ class _HomeState extends State<Home> {
                   activeFgColor: Colors.white,
                   inactiveBgColor: Colors.grey,
                   inactiveFgColor: Colors.white,
-                  totalSwitches: 2,
+                  totalSwitches: 3,
                   labels: [
-                    'Consumed List',
+                    'In Progress List',
                     'Wanted List',
+                    'Consumed List',
                   ],
                   iconSize: 30.0,
                   borderColor: [

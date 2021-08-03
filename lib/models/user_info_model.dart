@@ -19,11 +19,14 @@ class UserInfoModel
 @JsonSerializable(explicitToJson: true)
 class UserData{
 
+  List<StartedMedia> inProgressList = [];
   List<ConsumedMedia> consumedList = [];
   List<WantedMedia> wantedList = [];
 
   UserData()
   {
+    inProgressList.add(StartedMedia('Guardians', 'Movie', DateTime.now()));
+
     consumedList.add(ConsumedMedia('Avengers 1', 'Movie', DateTime.now()));
     consumedList.add(ConsumedMedia('Avengers 2', 'Movie', DateTime.now()));
     consumedList.add(ConsumedMedia('Avengers 3', 'Movie', DateTime.now()));
