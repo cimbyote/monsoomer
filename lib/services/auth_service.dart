@@ -80,10 +80,5 @@ class AuthService{
   }
 
 
-  // //TODO: get userID
-  // Stream<User?> get userId {
-  //   return _auth.authStateChanges().uid;
-  // }
-
 
 }

@@ -1,14 +1,34 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:monsoomer/utilities/dateTime_serializer.dart';
-
+import 'package:monsoomer/shared/constants.dart';
 
 part 'media.g.dart';
+
+enum MediaType { Movie, TV, Game, NULL }
+
+String getMediaTypeString(MediaType inType) {
+  if (inType == MediaType.Movie) {
+    return "Movie";
+  } else if (inType == MediaType.TV) {
+    return "Show";
+  } else if (inType == MediaType.Game) {
+    return "Game";
+  }
+
+  else if (inType == MediaType.NULL) {
+    return "ERROR: Null type";
+  } else {
+    return 'meh';
+  }
+}
+
+
 
 @JsonSerializable(explicitToJson: true)
 class Media
 {
   final String name;
-  final String type;
+  final MediaType type;
 
   @CustomDateTimeConverter()
   late DateTime addedDateTime;
@@ -32,7 +52,7 @@ class ConsumedMedia extends Media
   @CustomDateTimeConverter()
   late DateTime consumedDateTime;
 
-  ConsumedMedia(String name, String type, DateTime consumedDateTime)
+  ConsumedMedia(String name, MediaType type, DateTime consumedDateTime)
       : super(name, type)
   {
     this.consumedDateTime = consumedDateTime;
@@ -49,7 +69,7 @@ class StartedMedia extends Media
   @CustomDateTimeConverter()
   late DateTime startedDateTime;
 
-  StartedMedia(String name, String type, DateTime startedDateTime)
+  StartedMedia(String name, MediaType type, DateTime startedDateTime)
       : super(name, type)
   {
     this.startedDateTime = startedDateTime;
@@ -65,7 +85,7 @@ class StartedMedia extends Media
 class WantedMedia extends Media
 {
 
-  WantedMedia(String name, String type)
+  WantedMedia(String name, MediaType type)
       : super(name, type)
   {
     //meh

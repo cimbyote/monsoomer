@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:monsoomer/models/media.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:monsoomer/shared/constants.dart';
 import 'package:monsoomer/shared/loading_widget.dart';
 
 class MediaTile extends StatelessWidget {
@@ -28,7 +29,7 @@ class MediaTile extends StatelessWidget {
             ),
           ),
           title: Text(media.name),
-          subtitle: Text(media.type),
+          subtitle: Text(getMediaTypeString(media.type)),
         ),
       ),
     );

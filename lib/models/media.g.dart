@@ -9,7 +9,7 @@ part of 'media.dart';
 Media _$MediaFromJson(Map<String, dynamic> json) {
   return Media(
     json['name'] as String,
-    json['type'] as String,
+    _$enumDecode(_$MediaTypeEnumMap, json['type']),
   )
     ..addedDateTime = const CustomDateTimeConverter()
         .fromJson(json['addedDateTime'] as String)
@@ -18,16 +18,49 @@ Media _$MediaFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$MediaToJson(Media instance) => <String, dynamic>{
       'name': instance.name,
-      'type': instance.type,
+      'type': _$MediaTypeEnumMap[instance.type],
       'addedDateTime':
           const CustomDateTimeConverter().toJson(instance.addedDateTime),
       'imageString': instance.imageString,
     };
 
+K _$enumDecode<K, V>(
+  Map<K, V> enumValues,
+  Object? source, {
+  K? unknownValue,
+}) {
+  if (source == null) {
+    throw ArgumentError(
+      'A value must be provided. Supported values: '
+      '${enumValues.values.join(', ')}',
+    );
+  }
+
+  return enumValues.entries.singleWhere(
+    (e) => e.value == source,
+    orElse: () {
+      if (unknownValue == null) {
+        throw ArgumentError(
+          '`$source` is not one of the supported values: '
+          '${enumValues.values.join(', ')}',
+        );
+      }
+      return MapEntry(unknownValue, enumValues.values.first);
+    },
+  ).key;
+}
+
+const _$MediaTypeEnumMap = {
+  MediaType.Movie: 'Movie',
+  MediaType.TV: 'TV',
+  MediaType.Game: 'Game',
+  MediaType.NULL: 'NULL',
+};
+
 ConsumedMedia _$ConsumedMediaFromJson(Map<String, dynamic> json) {
   return ConsumedMedia(
     json['name'] as String,
-    json['type'] as String,
+    _$enumDecode(_$MediaTypeEnumMap, json['type']),
     const CustomDateTimeConverter()
         .fromJson(json['consumedDateTime'] as String),
   )
@@ -39,7 +72,7 @@ ConsumedMedia _$ConsumedMediaFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$ConsumedMediaToJson(ConsumedMedia instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'type': instance.type,
+      'type': _$MediaTypeEnumMap[instance.type],
       'addedDateTime':
           const CustomDateTimeConverter().toJson(instance.addedDateTime),
       'imageString': instance.imageString,
@@ -50,7 +83,7 @@ Map<String, dynamic> _$ConsumedMediaToJson(ConsumedMedia instance) =>
 StartedMedia _$StartedMediaFromJson(Map<String, dynamic> json) {
   return StartedMedia(
     json['name'] as String,
-    json['type'] as String,
+    _$enumDecode(_$MediaTypeEnumMap, json['type']),
     const CustomDateTimeConverter().fromJson(json['startedDateTime'] as String),
   )
     ..addedDateTime = const CustomDateTimeConverter()
@@ -61,7 +94,7 @@ StartedMedia _$StartedMediaFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$StartedMediaToJson(StartedMedia instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'type': instance.type,
+      'type': _$MediaTypeEnumMap[instance.type],
       'addedDateTime':
           const CustomDateTimeConverter().toJson(instance.addedDateTime),
       'imageString': instance.imageString,
@@ -72,7 +105,7 @@ Map<String, dynamic> _$StartedMediaToJson(StartedMedia instance) =>
 WantedMedia _$WantedMediaFromJson(Map<String, dynamic> json) {
   return WantedMedia(
     json['name'] as String,
-    json['type'] as String,
+    _$enumDecode(_$MediaTypeEnumMap, json['type']),
   )
     ..addedDateTime = const CustomDateTimeConverter()
         .fromJson(json['addedDateTime'] as String)
@@ -82,7 +115,7 @@ WantedMedia _$WantedMediaFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$WantedMediaToJson(WantedMedia instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'type': instance.type,
+      'type': _$MediaTypeEnumMap[instance.type],
       'addedDateTime':
           const CustomDateTimeConverter().toJson(instance.addedDateTime),
       'imageString': instance.imageString,

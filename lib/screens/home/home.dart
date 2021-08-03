@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_iconpicker/IconPicker/searchBar.dart';
 import 'package:monsoomer/models/media.dart';
 import 'package:monsoomer/models/user_info_model.dart';
 import 'package:monsoomer/screens/home/settings_form.dart';
@@ -7,8 +8,10 @@ import 'package:monsoomer/services/auth_service.dart';
 import 'package:monsoomer/services/database_service.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../side_menu.dart';
 import 'media_list.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import 'package:anim_search_bar/anim_search_bar.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -16,12 +19,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  TextEditingController _textController = TextEditingController();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   final AuthService _auth = AuthService();
   int showConsumedToggle = 0;
 
   @override
   Widget build(BuildContext context) {
-
     void _showSettingsPanel() {
       showModalBottomSheet(
         context: context,
@@ -40,24 +44,35 @@ class _HomeState extends State<Home> {
           .userDataStream,
       initialData: UserData(),
       child: Scaffold(
+        drawer: SideMenu(),
+        key: _scaffoldKey,
         appBar: AppBar(
           title: Text('Home'),
           elevation: 0.0,
           actions: <Widget>[
-            TextButton.icon(
-              label: Text('Logout'),
-              icon: Icon(Icons.person),
-              onPressed: () async {
-                await _auth.signOut();
+            AnimSearchBar(
+              color: Colors.grey,
+              suffixIcon: Icon(
+                Icons.search,
+                color: Colors.purple,
+              ),
+              prefixIcon: Icon(
+                Icons.add,
+                color: Colors.purple,
+              ),
+              helpText: 'Search for Media',
+              closeSearchOnSuffixTap: true,
+              autoFocus: true,
+              rtl: true,
+              width: MediaQuery.of(context).size.width -55,
+              textController: _textController,
+              onSuffixTap: () {
+                setState(() {
+                  _textController.clear();
+                });
               },
             ),
-            TextButton.icon(
-              label: Text('Settings'),
-              icon: Icon(Icons.settings),
-              onPressed: () {
-                _showSettingsPanel();
-              },
-            ),
+            SizedBox(width: 10,),
           ],
         ),
         body: Container(
@@ -116,7 +131,6 @@ class _HomeState extends State<Home> {
   }
 }
 
-//TODO: toggle consumed or want lists
-//TODO: add to list
-
 //TODO: setup API for search
+
+//TODO: add to list

@@ -1,3 +1,5 @@
+import 'package:monsoomer/shared/constants.dart';
+
 import 'media.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -25,14 +27,14 @@ class UserData{
 
   UserData()
   {
-    inProgressList.add(StartedMedia('Guardians', 'Movie', DateTime.now()));
+    inProgressList.add(StartedMedia('Guardians', MediaType.Movie, DateTime.now()));
 
-    consumedList.add(ConsumedMedia('Avengers 1', 'Movie', DateTime.now()));
-    consumedList.add(ConsumedMedia('Avengers 2', 'Movie', DateTime.now()));
-    consumedList.add(ConsumedMedia('Avengers 3', 'Movie', DateTime.now()));
+    consumedList.add(ConsumedMedia('Avengers 1', MediaType.Movie, DateTime.now()));
+    consumedList.add(ConsumedMedia('Avengers 2', MediaType.Movie, DateTime.now()));
+    consumedList.add(ConsumedMedia('Avengers 3', MediaType.Movie, DateTime.now()));
 
-    wantedList.add(WantedMedia('Ant-Man 1', 'Movie'));
-    wantedList.add(WantedMedia('Ant-Man 2', 'Movie'));
+    wantedList.add(WantedMedia('Ant-Man 1', MediaType.Movie));
+    wantedList.add(WantedMedia('Ant-Man 2', MediaType.Movie));
   }
 
   factory UserData.fromJson(Map<String, dynamic> json) => _$UserDataFromJson(json);
