@@ -20,14 +20,14 @@ Map<String, dynamic> _$UserInfoModelToJson(UserInfoModel instance) =>
 UserData _$UserDataFromJson(Map<String, dynamic> json) {
   return UserData()
     ..consumedList = (json['consumedList'] as List<dynamic>)
-        .map((e) => Media.fromJson(e as Map<String, dynamic>))
+        .map((e) => ConsumedMedia.fromJson(e as Map<String, dynamic>))
         .toList()
-    ..wantList = (json['wantList'] as List<dynamic>)
-        .map((e) => Media.fromJson(e as Map<String, dynamic>))
+    ..wantedList = (json['wantedList'] as List<dynamic>)
+        .map((e) => WantedMedia.fromJson(e as Map<String, dynamic>))
         .toList();
 }
 
 Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
       'consumedList': instance.consumedList.map((e) => e.toJson()).toList(),
-      'wantList': instance.wantList.map((e) => e.toJson()).toList(),
+      'wantedList': instance.wantedList.map((e) => e.toJson()).toList(),
     };

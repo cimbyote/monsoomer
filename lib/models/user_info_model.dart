@@ -19,14 +19,17 @@ class UserInfoModel
 @JsonSerializable(explicitToJson: true)
 class UserData{
 
-  List<Media> consumedList = [];
-  List<Media> wantList = [];
+  List<ConsumedMedia> consumedList = [];
+  List<WantedMedia> wantedList = [];
 
   UserData()
   {
-    consumedList.add(Media(name: 'Avengers 1', type: 'Movie'));
-    consumedList.add(Media(name: 'Avengers 2', type: 'Movie'));
-    consumedList.add(Media(name: 'Avengers 3', type: 'Movie'));
+    consumedList.add(ConsumedMedia('Avengers 1', 'Movie', DateTime.now()));
+    consumedList.add(ConsumedMedia('Avengers 2', 'Movie', DateTime.now()));
+    consumedList.add(ConsumedMedia('Avengers 3', 'Movie', DateTime.now()));
+
+    wantedList.add(WantedMedia('Ant-Man 1', 'Movie'));
+    wantedList.add(WantedMedia('Ant-Man 2', 'Movie'));
   }
 
   factory UserData.fromJson(Map<String, dynamic> json) => _$UserDataFromJson(json);

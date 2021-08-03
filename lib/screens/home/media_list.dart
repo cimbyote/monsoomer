@@ -6,7 +6,10 @@ import 'package:provider/provider.dart';
 import 'media_tile.dart';
 
 class MediaList extends StatefulWidget {
-  const MediaList({Key? key}) : super(key: key);
+
+  int inShowConsumedToggle;
+
+  MediaList(this.inShowConsumedToggle);
 
   @override
   _MediaListState createState() => _MediaListState();
@@ -15,14 +18,27 @@ class MediaList extends StatefulWidget {
 class _MediaListState extends State<MediaList> {
   @override
   Widget build(BuildContext context) {
-
     final userData = Provider.of<UserData>(context);
 
-    return ListView.builder(
-      itemCount: userData.consumedList.length,
-      itemBuilder: (context, index) {
-        return MediaTile(media: userData.consumedList[index]);
-      },
-    );
+
+    if (widget.inShowConsumedToggle == 0) {
+      return ListView.builder(
+        shrinkWrap: true,
+        itemCount: userData.consumedList.length,
+        itemBuilder: (context, index) {
+          return MediaTile(media: userData.consumedList[index]);
+        },
+      );
+    }
+    else {
+      return ListView.builder(
+        shrinkWrap: true,
+        itemCount: userData.wantedList.length,
+        itemBuilder: (context, index) {
+          return MediaTile(media: userData.wantedList[index]);
+        },
+      );
+    }
   }
+
 }
