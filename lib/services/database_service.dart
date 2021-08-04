@@ -30,6 +30,7 @@ class DatabaseService {
   }
 
 
+
   //userData from snapshot
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
 
@@ -42,5 +43,23 @@ class DatabaseService {
 
   Stream<UserData> get userDataStream {
     return mediaCollection.doc(uid).snapshots().map(_userDataFromSnapshot);
+  }
+
+
+  Future addToConsumedList(ConsumedMedia newMedia) async{
+
+    mediaCollection.doc(uid).get().then((value) {
+      if(value.exists)
+      {
+        final temp = jsonEncode(value.data());
+        final temp2 = jsonDecode(temp);
+
+        UserData theUserData = UserData.fromJson(temp2);
+
+        theUserData.addThing(newMedia);
+        this.updateUserData(theUserData);
+      }
+    });
+
   }
 }

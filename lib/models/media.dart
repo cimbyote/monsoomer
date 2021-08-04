@@ -35,9 +35,8 @@ class Media
 
   late String imageString;
 
-  Media(this.name, this.type)
+  Media(this.name, this.type, this.imageString)
   {
-    this.imageString = 'https://m.media-amazon.com/images/I/81OmkfFqvsL._AC_SY741_.jpg';
     this.addedDateTime = DateTime.now();
   }
 
@@ -52,8 +51,8 @@ class ConsumedMedia extends Media
   @CustomDateTimeConverter()
   late DateTime consumedDateTime;
 
-  ConsumedMedia(String name, MediaType type, DateTime consumedDateTime)
-      : super(name, type)
+  ConsumedMedia(String name, MediaType type, String imageString, DateTime consumedDateTime)
+      : super(name, type, imageString)
   {
     this.consumedDateTime = consumedDateTime;
   }
@@ -69,8 +68,8 @@ class StartedMedia extends Media
   @CustomDateTimeConverter()
   late DateTime startedDateTime;
 
-  StartedMedia(String name, MediaType type, DateTime startedDateTime)
-      : super(name, type)
+  StartedMedia(String name, MediaType type, String imageString, DateTime startedDateTime)
+      : super(name, type, imageString)
   {
     this.startedDateTime = startedDateTime;
   }
@@ -85,8 +84,8 @@ class StartedMedia extends Media
 class WantedMedia extends Media
 {
 
-  WantedMedia(String name, MediaType type)
-      : super(name, type)
+  WantedMedia(String name, MediaType type, String imageString, )
+      : super(name, type, imageString)
   {
     //meh
   }

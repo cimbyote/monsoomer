@@ -12,6 +12,7 @@ import '../side_menu.dart';
 import 'media_list.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:anim_search_bar/anim_search_bar.dart';
+import 'package:monsoomer/services/api_service.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -20,9 +21,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   TextEditingController _textController = TextEditingController();
+  APIService _apiService = APIService();
+
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final AuthService _auth = AuthService();
   int showConsumedToggle = 0;
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +44,7 @@ class _HomeState extends State<Home> {
     }
 
     return StreamProvider<UserData>.value(
-      value: DatabaseService(uid: Provider.of<UserInfoModel?>(context)!.uid)
-          .userDataStream,
+      value: DatabaseService(uid: Provider.of<UserInfoModel?>(context)!.uid).userDataStream,
       initialData: UserData(),
       child: Scaffold(
         drawer: SideMenu(),
@@ -67,9 +70,23 @@ class _HomeState extends State<Home> {
               width: MediaQuery.of(context).size.width -55,
               textController: _textController,
               onSuffixTap: () {
+
+                // ConsumedMedia temp = ConsumedMedia('temp', MediaType.NULL, 'temp', DateTime.now());
+                //
+                // doThings().then((value) {
+                //   setState(() {
+                //     temp = value;
+                //     DatabaseService(uid: Provider.of<UserInfoModel?>(context, listen: false)!.uid).addToConsumedList(temp);
+                //   });
+                //
+                // });
+
+
+
                 setState(() {
                   _textController.clear();
                 });
+
               },
             ),
             SizedBox(width: 10,),
@@ -129,6 +146,16 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
+  // Future<ConsumedMedia> doThings() async{
+  //   dynamic temp = await _apiService.getData();
+  //   ConsumedMedia newMedia = ConsumedMedia(temp['Search'][0]['Title'], MediaType.Movie, temp['Search'][0]['Poster'], DateTime.now(),);
+  //
+  //   print(newMedia.name);
+  //
+  //   return newMedia;
+  //   //
+  // }
 }
 
 //TODO: setup API for search

@@ -10,10 +10,9 @@ Media _$MediaFromJson(Map<String, dynamic> json) {
   return Media(
     json['name'] as String,
     _$enumDecode(_$MediaTypeEnumMap, json['type']),
-  )
-    ..addedDateTime = const CustomDateTimeConverter()
-        .fromJson(json['addedDateTime'] as String)
-    ..imageString = json['imageString'] as String;
+    json['imageString'] as String,
+  )..addedDateTime =
+      const CustomDateTimeConverter().fromJson(json['addedDateTime'] as String);
 }
 
 Map<String, dynamic> _$MediaToJson(Media instance) => <String, dynamic>{
@@ -61,12 +60,11 @@ ConsumedMedia _$ConsumedMediaFromJson(Map<String, dynamic> json) {
   return ConsumedMedia(
     json['name'] as String,
     _$enumDecode(_$MediaTypeEnumMap, json['type']),
+    json['imageString'] as String,
     const CustomDateTimeConverter()
         .fromJson(json['consumedDateTime'] as String),
-  )
-    ..addedDateTime = const CustomDateTimeConverter()
-        .fromJson(json['addedDateTime'] as String)
-    ..imageString = json['imageString'] as String;
+  )..addedDateTime =
+      const CustomDateTimeConverter().fromJson(json['addedDateTime'] as String);
 }
 
 Map<String, dynamic> _$ConsumedMediaToJson(ConsumedMedia instance) =>
@@ -84,11 +82,10 @@ StartedMedia _$StartedMediaFromJson(Map<String, dynamic> json) {
   return StartedMedia(
     json['name'] as String,
     _$enumDecode(_$MediaTypeEnumMap, json['type']),
+    json['imageString'] as String,
     const CustomDateTimeConverter().fromJson(json['startedDateTime'] as String),
-  )
-    ..addedDateTime = const CustomDateTimeConverter()
-        .fromJson(json['addedDateTime'] as String)
-    ..imageString = json['imageString'] as String;
+  )..addedDateTime =
+      const CustomDateTimeConverter().fromJson(json['addedDateTime'] as String);
 }
 
 Map<String, dynamic> _$StartedMediaToJson(StartedMedia instance) =>
@@ -106,10 +103,9 @@ WantedMedia _$WantedMediaFromJson(Map<String, dynamic> json) {
   return WantedMedia(
     json['name'] as String,
     _$enumDecode(_$MediaTypeEnumMap, json['type']),
-  )
-    ..addedDateTime = const CustomDateTimeConverter()
-        .fromJson(json['addedDateTime'] as String)
-    ..imageString = json['imageString'] as String;
+    json['imageString'] as String,
+  )..addedDateTime =
+      const CustomDateTimeConverter().fromJson(json['addedDateTime'] as String);
 }
 
 Map<String, dynamic> _$WantedMediaToJson(WantedMedia instance) =>
