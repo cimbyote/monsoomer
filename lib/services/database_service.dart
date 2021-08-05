@@ -12,7 +12,7 @@ class DatabaseService {
 
   //collection reference, will automatically create it if it doesn't exist
   final CollectionReference userInfoCollection = FirebaseFirestore.instance.collection('users');
-  final CollectionReference mediaCollection = FirebaseFirestore.instance.collection('userData');
+  final CollectionReference mediaCollection = FirebaseFirestore.instance.collection('userMediaCollections');
 
 
   Future updateUserInfo(UserInfoModel data) async {
@@ -29,8 +29,6 @@ class DatabaseService {
     return await mediaCollection.doc(uid).set(temp);
   }
 
-
-
   //userData from snapshot
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
 
@@ -46,20 +44,20 @@ class DatabaseService {
   }
 
 
-  Future addToConsumedList(ConsumedMedia newMedia) async{
-
-    mediaCollection.doc(uid).get().then((value) {
-      if(value.exists)
-      {
-        final temp = jsonEncode(value.data());
-        final temp2 = jsonDecode(temp);
-
-        UserData theUserData = UserData.fromJson(temp2);
-
-        theUserData.addThing(newMedia);
-        this.updateUserData(theUserData);
-      }
-    });
-
-  }
+  // Future addToConsumedList(Media newMedia) async{
+  //
+  //   mediaCollection.doc(uid).get().then((value) {
+  //     if(value.exists)
+  //     {
+  //       final temp = jsonEncode(value.data());
+  //       final temp2 = jsonDecode(temp);
+  //
+  //       UserData theUserData = UserData.fromJson(temp2);
+  //
+  //       theUserData.addMediaToList(newMedia);
+  //       this.updateUserData(theUserData);
+  //     }
+  //   });
+  //
+  // }
 }

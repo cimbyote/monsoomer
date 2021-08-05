@@ -12,6 +12,17 @@ class CustomDateTimeConverter implements JsonConverter<DateTime, String> {
     return DateTime.parse(json);
   }
 
+  //@override
+  //String toJson(DateTime json) => json.toIso8601String();
   @override
-  String toJson(DateTime json) => json.toIso8601String();
+  String toJson(DateTime? json){
+    if(json!=null)
+      {
+        return json.toIso8601String();
+      }
+    else
+      {
+        return '';
+      }
+  }
 }

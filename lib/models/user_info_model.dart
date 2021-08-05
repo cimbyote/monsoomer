@@ -3,50 +3,81 @@ import 'package:monsoomer/shared/constants.dart';
 import 'media.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-
 part 'user_info_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class UserInfoModel
-{
+class UserInfoModel {
   final String uid;
 
   UserInfoModel({required this.uid});
 
-  factory UserInfoModel.fromJson(Map<String, dynamic> json) => _$UserInfoModelFromJson(json);
-  Map<String, dynamic> toJson() => _$UserInfoModelToJson(this);
+  factory UserInfoModel.fromJson(Map<String, dynamic> json) =>
+      _$UserInfoModelFromJson(json);
 
+  Map<String, dynamic> toJson() => _$UserInfoModelToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class UserData{
+class UserData {
+  List<Media> startedList = [];
+  List<Media> consumedList = [];
+  List<Media> wantedList = [];
 
-  List<StartedMedia> inProgressList = [];
-  List<ConsumedMedia> consumedList = [];
-  List<WantedMedia> wantedList = [];
-
-  UserData()
-  {
-    // inProgressList.add(StartedMedia('Guardians', MediaType.Movie, 'https://m.media-amazon.com/images/I/81OmkfFqvsL._AC_SY741_.jpg', DateTime.now()));
+  UserData() {
+    // addMediaToList(Media.started(
+    //     name: 'Guardians',
+    //     apiID: 'NULL',
+    //     type: MediaType.Movie,
+    //     imageString:
+    //         'https://m.media-amazon.com/images/I/81OmkfFqvsL._AC_SY741_.jpg',
+    //     startedDateTime: DateTime.now().toIso8601String(),
+    //     addedDateTime: DateTime.now().toIso8601String()));
     //
-    // consumedList.add(ConsumedMedia('Avengers 1', MediaType.Movie, 'https://m.media-amazon.com/images/I/81OmkfFqvsL._AC_SY741_.jpg', DateTime.now()));
-    // consumedList.add(ConsumedMedia('Avengers 2', MediaType.Movie, 'https://m.media-amazon.com/images/I/81OmkfFqvsL._AC_SY741_.jpg', DateTime.now()));
-    // consumedList.add(ConsumedMedia('Avengers 3', MediaType.Movie, 'https://m.media-amazon.com/images/I/81OmkfFqvsL._AC_SY741_.jpg', DateTime.now()));
+    // addMediaToList(Media.consumed(
+    //     name: 'Avengers 1',
+    //     apiID: 'NULL',
+    //     type: MediaType.Movie,
+    //     imageString:
+    //         'https://m.media-amazon.com/images/I/81OmkfFqvsL._AC_SY741_.jpg',
+    //     consumedDateTime: DateTime.now().toIso8601String(),
+    //     addedDateTime: DateTime.now().toIso8601String()));
     //
-    // wantedList.add(WantedMedia('Ant-Man 1', MediaType.Movie, 'https://m.media-amazon.com/images/I/81OmkfFqvsL._AC_SY741_.jpg', ));
-    // wantedList.add(WantedMedia('Ant-Man 2', MediaType.Movie, 'https://m.media-amazon.com/images/I/81OmkfFqvsL._AC_SY741_.jpg', ));
+    //
+    addMediaToList(Media.wanted(
+        name: 'Ant-Man 1',
+        apiID: 'NULL',
+        type: MediaType.Movie,
+        imageString:
+            'https://m.media-amazon.com/images/I/81OmkfFqvsL._AC_SY741_.jpg',
+        addedDateTime: DateTime.now().toIso8601String()));
+
   }
 
-  void addThing(ConsumedMedia newMedia)
-  {
-    consumedList.add(newMedia);
+  void addMediaToList(Media newMedia) {
+    if(newMedia.status == MediaStatus.Consumed)
+      {
+        consumedList.add(newMedia);
+      }
+    else if(newMedia.status == MediaStatus.Wanted)
+    {
+      wantedList.add(newMedia);
+    }
+    else if(newMedia.status == MediaStatus.Started)
+    {
+      startedList.add(newMedia);
+    }
+    else
+      {
+        print("Error adding item to list: status isn't set");
+      }
   }
 
-  void printConsumedLength()
-  {
-    print('LENGTH OF CONSUMED LIST IS: '+consumedList.length.toString());
+  void printConsumedLength() {
+    print('LENGTH OF CONSUMED LIST IS: ' + consumedList.length.toString());
   }
 
-  factory UserData.fromJson(Map<String, dynamic> json) => _$UserDataFromJson(json);
+  factory UserData.fromJson(Map<String, dynamic> json) =>
+      _$UserDataFromJson(json);
+
   Map<String, dynamic> toJson() => _$UserDataToJson(this);
 }

@@ -23,9 +23,9 @@ class _MediaListState extends State<MediaList> {
     if (widget.inShowConsumedToggle == 0) {
       return ListView.builder(
         shrinkWrap: true,
-        itemCount: userData.inProgressList.length,
+        itemCount: userData.startedList.length,
         itemBuilder: (context, index) {
-          return MediaTile(media: userData.inProgressList[index]);
+          return MediaTile(media: userData.startedList[index]);
         },
       );
     } else if (widget.inShowConsumedToggle == 1) {

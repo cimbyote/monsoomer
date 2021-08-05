@@ -9,18 +9,24 @@ part of 'media.dart';
 Media _$MediaFromJson(Map<String, dynamic> json) {
   return Media(
     json['name'] as String,
+    json['apiID'] as String,
+    _$enumDecode(_$MediaStatusEnumMap, json['status']),
     _$enumDecode(_$MediaTypeEnumMap, json['type']),
     json['imageString'] as String,
-  )..addedDateTime =
-      const CustomDateTimeConverter().fromJson(json['addedDateTime'] as String);
+    json['consumedDateTime'] as String?,
+    json['startedDateTime'] as String?,
+  )..addedDateTime = json['addedDateTime'] as String;
 }
 
 Map<String, dynamic> _$MediaToJson(Media instance) => <String, dynamic>{
       'name': instance.name,
       'type': _$MediaTypeEnumMap[instance.type],
-      'addedDateTime':
-          const CustomDateTimeConverter().toJson(instance.addedDateTime),
+      'apiID': instance.apiID,
+      'status': _$MediaStatusEnumMap[instance.status],
       'imageString': instance.imageString,
+      'addedDateTime': instance.addedDateTime,
+      'consumedDateTime': instance.consumedDateTime,
+      'startedDateTime': instance.startedDateTime,
     };
 
 K _$enumDecode<K, V>(
@@ -49,70 +55,16 @@ K _$enumDecode<K, V>(
   ).key;
 }
 
+const _$MediaStatusEnumMap = {
+  MediaStatus.Consumed: 'Consumed',
+  MediaStatus.Wanted: 'Wanted',
+  MediaStatus.Started: 'Started',
+  MediaStatus.NULL: 'NULL',
+};
+
 const _$MediaTypeEnumMap = {
   MediaType.Movie: 'Movie',
   MediaType.TV: 'TV',
   MediaType.Game: 'Game',
   MediaType.NULL: 'NULL',
 };
-
-ConsumedMedia _$ConsumedMediaFromJson(Map<String, dynamic> json) {
-  return ConsumedMedia(
-    json['name'] as String,
-    _$enumDecode(_$MediaTypeEnumMap, json['type']),
-    json['imageString'] as String,
-    const CustomDateTimeConverter()
-        .fromJson(json['consumedDateTime'] as String),
-  )..addedDateTime =
-      const CustomDateTimeConverter().fromJson(json['addedDateTime'] as String);
-}
-
-Map<String, dynamic> _$ConsumedMediaToJson(ConsumedMedia instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'type': _$MediaTypeEnumMap[instance.type],
-      'addedDateTime':
-          const CustomDateTimeConverter().toJson(instance.addedDateTime),
-      'imageString': instance.imageString,
-      'consumedDateTime':
-          const CustomDateTimeConverter().toJson(instance.consumedDateTime),
-    };
-
-StartedMedia _$StartedMediaFromJson(Map<String, dynamic> json) {
-  return StartedMedia(
-    json['name'] as String,
-    _$enumDecode(_$MediaTypeEnumMap, json['type']),
-    json['imageString'] as String,
-    const CustomDateTimeConverter().fromJson(json['startedDateTime'] as String),
-  )..addedDateTime =
-      const CustomDateTimeConverter().fromJson(json['addedDateTime'] as String);
-}
-
-Map<String, dynamic> _$StartedMediaToJson(StartedMedia instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'type': _$MediaTypeEnumMap[instance.type],
-      'addedDateTime':
-          const CustomDateTimeConverter().toJson(instance.addedDateTime),
-      'imageString': instance.imageString,
-      'startedDateTime':
-          const CustomDateTimeConverter().toJson(instance.startedDateTime),
-    };
-
-WantedMedia _$WantedMediaFromJson(Map<String, dynamic> json) {
-  return WantedMedia(
-    json['name'] as String,
-    _$enumDecode(_$MediaTypeEnumMap, json['type']),
-    json['imageString'] as String,
-  )..addedDateTime =
-      const CustomDateTimeConverter().fromJson(json['addedDateTime'] as String);
-}
-
-Map<String, dynamic> _$WantedMediaToJson(WantedMedia instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'type': _$MediaTypeEnumMap[instance.type],
-      'addedDateTime':
-          const CustomDateTimeConverter().toJson(instance.addedDateTime),
-      'imageString': instance.imageString,
-    };
