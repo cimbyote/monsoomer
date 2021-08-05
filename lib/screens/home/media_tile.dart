@@ -28,7 +28,7 @@ class MediaTile extends StatelessWidget {
               placeholder: (context, url) => LoadingWidget(),
             ),
           ),
-          title: Text(media.name),
+          title: Text(media.name + ' (${media.year})'),
           subtitle: Text(getMediaTypeString(media.type)),
         ),
       ),

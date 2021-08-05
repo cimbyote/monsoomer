@@ -8,32 +8,25 @@ part 'media.g.dart';
 class Media {
   final String name;
   final MediaType type;
-  final String apiID;
   MediaStatus status;
+  final String apiID;
+  final String year;
   late String imageString;
 
-  // @CustomDateTimeConverter()
-  // late DateTime addedDateTime;
-  // @CustomDateTimeConverter()
-  // late DateTime? consumedDateTime;
-  // @CustomDateTimeConverter()
-  // late DateTime? startedDateTime;
-
   late String addedDateTime;
-
   late String? consumedDateTime = 'NULL';
-
   late String? startedDateTime = 'NULL';
 
-  Media(this.name, this.apiID, this.status, this.type, this.imageString,
-      this.consumedDateTime, this.startedDateTime) {
+  Media(this.name, this.apiID, this.status, this.type, this.year,
+      this.imageString, this.consumedDateTime, this.startedDateTime) {
     this.addedDateTime = DateTime.now().toIso8601String();
   }
 
   Media.consumed(
       {required this.name,
-      required this.apiID,
       required this.type,
+      required this.apiID,
+      required this.year,
       required this.imageString,
       this.consumedDateTime,
       this.status = MediaStatus.Consumed,
@@ -41,16 +34,18 @@ class Media {
 
   Media.wanted(
       {required this.name,
-      required this.apiID,
       required this.type,
+      required this.apiID,
+      required this.year,
       required this.imageString,
       this.status = MediaStatus.Wanted,
       required this.addedDateTime});
 
   Media.started(
       {required this.name,
-      required this.apiID,
       required this.type,
+      required this.apiID,
+      required this.year,
       required this.imageString,
       this.startedDateTime,
       this.status = MediaStatus.Started,

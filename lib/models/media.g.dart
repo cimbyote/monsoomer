@@ -12,6 +12,7 @@ Media _$MediaFromJson(Map<String, dynamic> json) {
     json['apiID'] as String,
     _$enumDecode(_$MediaStatusEnumMap, json['status']),
     _$enumDecode(_$MediaTypeEnumMap, json['type']),
+    json['year'] as String,
     json['imageString'] as String,
     json['consumedDateTime'] as String?,
     json['startedDateTime'] as String?,
@@ -21,8 +22,9 @@ Media _$MediaFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$MediaToJson(Media instance) => <String, dynamic>{
       'name': instance.name,
       'type': _$MediaTypeEnumMap[instance.type],
-      'apiID': instance.apiID,
       'status': _$MediaStatusEnumMap[instance.status],
+      'apiID': instance.apiID,
+      'year': instance.year,
       'imageString': instance.imageString,
       'addedDateTime': instance.addedDateTime,
       'consumedDateTime': instance.consumedDateTime,

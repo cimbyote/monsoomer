@@ -47,6 +47,7 @@ class UserData {
         name: 'Ant-Man 1',
         apiID: 'NULL',
         type: MediaType.Movie,
+        year: '2015',
         imageString:
             'https://m.media-amazon.com/images/I/81OmkfFqvsL._AC_SY741_.jpg',
         addedDateTime: DateTime.now().toIso8601String()));
