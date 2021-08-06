@@ -2,9 +2,10 @@
 class MediaFromAPI
 {
   String title;
-  String id;
   String year;
+  String id;
+  String type;
   String imageString;
 
-  MediaFromAPI({required this.title, required this.id, required this.imageString, required this.year});
+  MediaFromAPI({required this.title, required this.year, required this.id, required this.type, required this.imageString, });
 }
