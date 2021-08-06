@@ -15,6 +15,9 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+
+  bool loading = false;
+
   APIService _apiService = APIService();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   late FloatingSearchBarController _searchBarController;
@@ -96,7 +99,7 @@ class _SearchScreenState extends State<SearchScreen> {
       body: FloatingSearchBar(
         controller: _searchBarController,
         body: FloatingSearchBarScrollNotifier(
-          child: SearchBarResultsListView(
+          child: loading ? LoadingWidget() : SearchBarResultsListView(
             searchTerm: selectedTerm,
             searchResultList: searchResultList,
           ),
@@ -123,9 +126,11 @@ class _SearchScreenState extends State<SearchScreen> {
           });
 
           if ((selectedTerm != null) || (selectedTerm != '')) {
+            loading = true;
             _apiService.searchAPI(selectedTerm!).then((value) {
               //TODO: if results come back false {"Response":"False","Error":"Movie not found!"}
               searchResultList = value;
+              loading = false;
               // print(searchResultList[0].title.toString());
             });
           }
