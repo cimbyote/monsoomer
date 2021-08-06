@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:monsoomer/models/user_info_model.dart';
 import 'package:monsoomer/screens/authenticate/authenticate.dart';
+import 'package:monsoomer/screens/home/search_screen.dart';
 import 'package:monsoomer/screens/wrapper.dart';
 
 import 'package:provider/provider.dart';
@@ -60,6 +61,7 @@ class MonsoomerApp extends StatelessWidget {
                   Wrapper.id: (context) => Wrapper(),
                   LandingScreen.id: (context) => LandingScreen(),
                   Authenticate.id: (context) => Authenticate(),
+                  SearchScreen.id: (context) => SearchScreen(),
                   // LoadingScreen.id: (context) => LoadingScreen(),
                   // LoginScreen.id: (context) => LoginScreen(),
                   // RegistrationScreen.id: (context) => RegistrationScreen(),

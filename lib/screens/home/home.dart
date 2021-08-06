@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/IconPicker/searchBar.dart';
 import 'package:monsoomer/models/media.dart';
 import 'package:monsoomer/models/user_info_model.dart';
+import 'package:monsoomer/screens/home/search_screen.dart';
 import 'package:monsoomer/screens/home/settings_form.dart';
 import 'package:monsoomer/services/auth_service.dart';
 import 'package:monsoomer/services/database_service.dart';
@@ -49,6 +50,12 @@ class _HomeState extends State<Home> {
       child: Scaffold(
         drawer: SideMenu(),
         key: _scaffoldKey,
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {
+            Navigator.pushNamed(context, SearchScreen.id);
+          },
+        ),
         appBar: AppBar(
           title: Text('Home'),
           elevation: 0.0,
@@ -60,7 +67,7 @@ class _HomeState extends State<Home> {
                 color: Colors.purple,
               ),
               prefixIcon: Icon(
-                Icons.add,
+                Icons.search,
                 color: Colors.purple,
               ),
               helpText: 'Search for Media',
