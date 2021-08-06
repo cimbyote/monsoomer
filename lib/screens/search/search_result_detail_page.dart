@@ -2,23 +2,33 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:monsoomer/models/mediaFromAPI.dart';
 import 'package:monsoomer/models/media.dart';
+import 'package:monsoomer/models/user_info_model.dart';
+import 'package:monsoomer/services/database_service.dart';
 import 'package:monsoomer/shared/loading_widget.dart';
 import 'package:monsoomer/widgets/rounded_square_button.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:provider/provider.dart';
 
-class SearchResultDetailPage extends StatelessWidget {
-  int showConsumedToggle = 0;
-  MediaFromAPI tappedMediaItem;
+//TODO: search different API for more detailed info
+class SearchResultDetailPage extends StatefulWidget {
+  final MediaFromAPI tappedMediaItem;
 
   SearchResultDetailPage({required this.tappedMediaItem});
+
+  @override
+  _SearchResultDetailPageState createState() => _SearchResultDetailPageState();
+}
+
+class _SearchResultDetailPageState extends State<SearchResultDetailPage> {
+  int showConsumedToggle = 0;
 
   @override
   Widget build(BuildContext context) {
     String displayImage;
 
-    if (tappedMediaItem.imageString != 'N/A') {
-      displayImage = tappedMediaItem.imageString;
+    if (widget.tappedMediaItem.imageString != 'N/A') {
+      displayImage = widget.tappedMediaItem.imageString;
     } else {
       //TODO: find better placeholder
       displayImage = 'https://i.stack.imgur.com/y9DpT.jpg';
@@ -43,7 +53,7 @@ class SearchResultDetailPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: AutoSizeText(
-                  tappedMediaItem.title,
+                  widget.tappedMediaItem.title,
                   maxLines: 1,
                   maxFontSize: 32.0,
                   style: TextStyle(fontSize: 32),
@@ -53,14 +63,14 @@ class SearchResultDetailPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  tappedMediaItem.year,
+                  widget.tappedMediaItem.year,
                   style: TextStyle(fontSize: 16),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  tappedMediaItem.type,
+                  widget.tappedMediaItem.type,
                   style: TextStyle(fontSize: 16),
                 ),
               ),
@@ -113,20 +123,39 @@ class SearchResultDetailPage extends StatelessWidget {
                     ]
                   ],
                   onToggle: (index) {
-                    // setState(() {
-                    //   showConsumedToggle = index;
-                    // });
+                    setState(() {
+                      showConsumedToggle = index;
+                    });
                   },
                 ),
               ),
               RoundedSquareButton(
                 buttonText: 'Add To List',
-                onPressedCallback: () {},
+                onPressedCallback: () {
+                  DatabaseService(uid: Provider.of<UserInfoModel?>(context, listen: false)!.uid).addToList(Media.fromAPI(mediaFromAPI: widget.tappedMediaItem, inStatus: getStatusFromToggle(showConsumedToggle)));
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                  },
               ),
             ],
           ),
         ],
       ),
     );
+  }
+  
+  MediaStatus getStatusFromToggle(int toggle)
+  {
+    if (toggle == 0) {
+      return MediaStatus.Started;
+    } else if (toggle == 1) {
+      return MediaStatus.Wanted;
+    } else if (toggle == 2) {
+      return MediaStatus.Consumed;
+    }
+    else
+    {
+      return MediaStatus.NULL;
+    }
   }
 }

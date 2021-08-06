@@ -51,9 +51,9 @@ class APIService {
 
   String parseSearch(String searchedTerm) {
     //TODO: write this out
-    //return 'Avengers';
+    return 'Avengers';
     //return 'Avengers%20Endgame';
-    return 'Peaky';
+    //return 'Peaky';
   }
 
   Future getData(String searchedTerm) async {

@@ -44,20 +44,20 @@ class DatabaseService {
   }
 
 
-  // Future addToConsumedList(Media newMedia) async{
-  //
-  //   mediaCollection.doc(uid).get().then((value) {
-  //     if(value.exists)
-  //     {
-  //       final temp = jsonEncode(value.data());
-  //       final temp2 = jsonDecode(temp);
-  //
-  //       UserData theUserData = UserData.fromJson(temp2);
-  //
-  //       theUserData.addMediaToList(newMedia);
-  //       this.updateUserData(theUserData);
-  //     }
-  //   });
-  //
-  // }
+  Future addToList(Media newMedia) async{
+
+    mediaCollection.doc(uid).get().then((value) {
+      if(value.exists)
+      {
+        final temp = jsonEncode(value.data());
+        final temp2 = jsonDecode(temp);
+
+        UserData theUserData = UserData.fromJson(temp2);
+
+        theUserData.addMediaToList(newMedia);
+        this.updateUserData(theUserData);
+      }
+    });
+
+  }
 }

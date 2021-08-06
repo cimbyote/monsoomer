@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:monsoomer/models/mediaFromAPI.dart';
 import 'package:monsoomer/utilities/dateTime_serializer.dart';
 import 'package:monsoomer/shared/constants.dart';
 
@@ -6,11 +7,11 @@ part 'media.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Media {
-  final String name;
-  final MediaType type;
-  MediaStatus status;
-  final String apiID;
-  final String year;
+  late final String name;
+  late final MediaType type;
+  late MediaStatus status;
+  late final String apiID;
+  late final String year;
   late String imageString;
 
   late String addedDateTime;
@@ -51,6 +52,27 @@ class Media {
       this.status = MediaStatus.Started,
       required this.addedDateTime});
 
+  Media.fromAPI(
+      {required MediaFromAPI mediaFromAPI, required MediaStatus inStatus}) {
+    name = mediaFromAPI.title;
+    type = getMediaTypeFromAPIString(mediaFromAPI.type);
+    status = inStatus;
+    apiID = mediaFromAPI.id;
+    year = mediaFromAPI.year;
+    imageString = mediaFromAPI.imageString;
+
+    addedDateTime = DateTime.now().toIso8601String();
+
+    if (inStatus == MediaStatus.Consumed) {
+      consumedDateTime = DateTime.now().toIso8601String();
+    } else if (inStatus == MediaStatus.Started) {
+      startedDateTime = DateTime.now().toIso8601String();
+    } else {
+      consumedDateTime = 'NULL';
+      startedDateTime = 'NULL';
+    }
+  }
+
   factory Media.fromJson(Map<String, dynamic> json) => _$MediaFromJson(json);
 
   Map<String, dynamic> toJson() => _$MediaToJson(this);
@@ -59,6 +81,17 @@ class Media {
 enum MediaStatus { Consumed, Wanted, Started, NULL }
 
 enum MediaType { Movie, TV, Game, NULL }
+
+MediaType getMediaTypeFromAPIString(String inString) {
+  if (inString == 'movie') {
+    return MediaType.Movie;
+  } else if (inString == 'series') {
+    return MediaType.TV;
+  } else {
+    print('Error in getting media type from API string');
+    return MediaType.NULL;
+  }
+}
 
 String getMediaTypeString(MediaType inType) {
   if (inType == MediaType.Movie) {
