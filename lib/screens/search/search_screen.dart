@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:monsoomer/models/mediaFromAPI.dart';
+import 'package:monsoomer/screens/search/search_result_detail_page.dart';
 import 'package:monsoomer/shared/loading_widget.dart';
 import '../side_menu.dart';
 import 'package:monsoomer/services/api_service.dart';
@@ -214,7 +215,6 @@ class SearchBarResultsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     String displayImage;
 
     final fsb = FloatingSearchBar.of(context);
@@ -222,20 +222,18 @@ class SearchBarResultsListView extends StatelessWidget {
       return Container();
     } else {
       return ListView.builder(
-        padding: EdgeInsets.only(top: 48.0 + 8.0), //hardcoded cuz package is stupid
+        padding: EdgeInsets.only(top: 48.0 + 8.0),
+        //hardcoded cuz package is stupid
         physics: ScrollPhysics(),
         shrinkWrap: true,
         itemCount: searchResultList.length,
         itemBuilder: (context, index) {
-
-          if(searchResultList[index].imageString != 'N/A')
-            {
-              displayImage = searchResultList[index].imageString;
-            }
-          else
-            {
-              displayImage = 'https://i.stack.imgur.com/y9DpT.jpg';
-            }
+          if (searchResultList[index].imageString != 'N/A') {
+            displayImage = searchResultList[index].imageString;
+          } else {
+            //TODO: find better placeholder
+            displayImage = 'https://i.stack.imgur.com/y9DpT.jpg';
+          }
 
           return Card(
             margin: EdgeInsets.fromLTRB(20, 6, 20, 0),
@@ -252,8 +250,23 @@ class SearchBarResultsListView extends StatelessWidget {
                   placeholder: (context, url) => LoadingWidget(),
                 ),
               ),
-              title: Text(searchResultList[index].title + ' (${searchResultList[index].year})'),
+              title: Text(searchResultList[index].title +
+                  ' (${searchResultList[index].year})'),
               subtitle: Text(searchResultList[index].type),
+              onTap: () {
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (context) => SingleChildScrollView(
+                    reverse: true,
+                    child: Container(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      child: SearchResultDetailPage(tappedMediaItem:searchResultList[index]),
+                    ),
+                  ),
+                );
+              },
             ),
           );
         },
@@ -261,5 +274,3 @@ class SearchBarResultsListView extends StatelessWidget {
     }
   }
 }
-
-

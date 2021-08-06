@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/IconPicker/searchBar.dart';
 import 'package:monsoomer/models/media.dart';
 import 'package:monsoomer/models/user_info_model.dart';
-import 'package:monsoomer/screens/home/search_screen.dart';
+import 'package:monsoomer/screens/search/search_screen.dart';
 import 'package:monsoomer/screens/home/settings_form.dart';
 import 'package:monsoomer/services/auth_service.dart';
 import 'package:monsoomer/services/database_service.dart';
