@@ -130,7 +130,10 @@ class _SearchScreenState extends State<SearchScreen> {
             _apiService.searchAPI(selectedTerm!).then((value) {
               //TODO: if results come back false {"Response":"False","Error":"Movie not found!"}
               searchResultList = value;
-              loading = false;
+              setState(() {
+                loading = false;
+              });
+
               // print(searchResultList[0].title.toString());
             });
           }
