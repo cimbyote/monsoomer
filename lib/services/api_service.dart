@@ -50,10 +50,20 @@ class APIService {
   }
 
   String parseSearch(String searchedTerm) {
+    final String term = replaceWhitespacesUsingRegex(searchedTerm, '%20');
+    return term;
     //TODO: write this out
-    return 'Avengers';
+    //return 'Avengers';
     //return 'Avengers%20Endgame';
     //return 'Peaky';
+  }
+
+  String replaceWhitespacesUsingRegex(String s, String replace) {
+    // This pattern means "at least one space, or more"
+    // \\s : space
+    // +   : one or more
+    final pattern = RegExp('\\s+');
+    return s.replaceAll(pattern, replace);
   }
 
   Future getData(String searchedTerm) async {

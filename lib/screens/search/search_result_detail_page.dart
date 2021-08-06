@@ -129,13 +129,16 @@ class _SearchResultDetailPageState extends State<SearchResultDetailPage> {
                   },
                 ),
               ),
-              RoundedSquareButton(
-                buttonText: 'Add To List',
-                onPressedCallback: () {
-                  DatabaseService(uid: Provider.of<UserInfoModel?>(context, listen: false)!.uid).addToList(Media.fromAPI(mediaFromAPI: widget.tappedMediaItem, inStatus: getStatusFromToggle(showConsumedToggle)));
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                  },
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: RoundedSquareButton(
+                  buttonText: 'Add To List',
+                  onPressedCallback: () {
+                    DatabaseService(uid: Provider.of<UserInfoModel?>(context, listen: false)!.uid).addToList(Media.fromAPI(mediaFromAPI: widget.tappedMediaItem, inStatus: getStatusFromToggle(showConsumedToggle)));
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    },
+                ),
               ),
             ],
           ),

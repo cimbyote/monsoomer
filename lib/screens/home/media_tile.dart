@@ -11,6 +11,7 @@ class MediaTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //TODO: make clickable for more info
     return Padding(
       padding: EdgeInsets.only(top: 8),
       child: Card(
