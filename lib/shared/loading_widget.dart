@@ -14,3 +14,18 @@ class LoadingWidget extends StatelessWidget {
     );
   }
 }
+
+class PageLoadingWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height - 200,
+      child: Center(
+        child: SpinKitWave(
+          color: Theme.of(context).primaryColor,
+          size: 50.0,
+        ),
+      ),
+    );
+  }
+}

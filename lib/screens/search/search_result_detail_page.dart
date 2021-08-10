@@ -6,6 +6,7 @@ import 'package:monsoomer/models/seriesDetailsFromAPI.dart';
 import 'package:monsoomer/models/user_info_model.dart';
 import 'package:monsoomer/services/database_service.dart';
 import 'package:monsoomer/shared/loading_widget.dart';
+import 'package:monsoomer/widgets/detailed_media_widget.dart';
 import 'package:monsoomer/widgets/rounded_square_button.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -57,89 +58,13 @@ class _SearchResultDetailPageState extends State<SearchResultDetailPage> {
       displayImage = 'https://i.stack.imgur.com/y9DpT.jpg';
     }
     return loading
-        ? LoadingWidget()
+        ? PageLoadingWidget()
         : Container(
             height: MediaQuery.of(context).size.height - 160,
             child: ListView(
               children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Card(
-                        child: CachedNetworkImage(
-                          height: 250,
-                          imageUrl: displayImage,
-                          placeholder: (context, url) => LoadingWidget(),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Card(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: AutoSizeText(
-                                detailedTappedMediaItem.title ?? 'NULL',
-                                maxLines: 2,
-                                maxFontSize: 32.0,
-                                style: TextStyle(fontSize: 32),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                detailedTappedMediaItem.year ?? 'NULL',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                detailedTappedMediaItem.type ?? 'NULL',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                detailedTappedMediaItem.actors ?? 'NULL',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                detailedTappedMediaItem.runtime ?? 'NULL',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-                Card(
-                  child: Column(
-                    children: [
-                      Text('Plot: ' + (detailedTappedMediaItem.plot ?? '')),
-                    ],
-                  ),
-                ),
-                Card(
-                  child: Column(
-                    children: [
-                      Text('Genre: ' + (detailedTappedMediaItem.genre ?? '')),
-                      Text('Rated: ' + (detailedTappedMediaItem.rated ?? '')),
-                      Text('Released: ' +
-                          (detailedTappedMediaItem.released ?? '')),
-                      Text('Rated: ' + (detailedTappedMediaItem.rated ?? '')),
-                    ],
-                  ),
-                ),
+                DetailedMediaWidget(displayImage: displayImage, detailedTappedMediaItem: detailedTappedMediaItem),
+
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -236,3 +161,4 @@ class _SearchResultDetailPageState extends State<SearchResultDetailPage> {
     }
   }
 }
+

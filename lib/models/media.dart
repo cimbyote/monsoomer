@@ -13,6 +13,10 @@ class Media {
   late final String apiID;
   late final String year;
   late String imageString;
+  //TODO: add this in
+  //late int personalRating;
+  //TODO: add this in
+  //late List<int> seasonsWatched;
 
   late String addedDateTime;
   late String? consumedDateTime = 'NULL';
