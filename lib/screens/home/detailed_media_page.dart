@@ -63,13 +63,46 @@ class _DetailedMediaPageState extends State<DetailedMediaPage> {
             height: MediaQuery.of(context).size.height - 160,
             child: ListView(
               children: [
+                //TODO: cache detailed data on local file to reduce # of queries
                 DetailedMediaWidget(
                     displayImage: displayImage,
                     detailedTappedMediaItem: detailedTappedMediaItem),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [],
+                  //Display number of seasons
+                  //Let me select which seasons I have watched
+                  //Delete from list
+                  //move to a different list [context based]
+                  children: [
+                    Row(
+                      children: [
+                        Text('Seasons'),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        ElevatedButton(
+                          child: Column(
+                            children: [
+                              Icon(Icons.delete_forever),
+                              Text("Delete"),
+                            ],
+                          ),
+                          onPressed: () {},
+                        ),
+                        ElevatedButton(
+                          child: Column(
+                            children: [
+                              Icon(Icons.trending_flat),
+                              Text("Move to..."),
+                            ],
+                          ),
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),

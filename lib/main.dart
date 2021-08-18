@@ -22,23 +22,23 @@ class MonsoomerApp extends StatelessWidget {
   final Future<FirebaseApp> _firebaseApp = Firebase.initializeApp();
   static FileManager fileManager = FileManager();
 
-
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        StreamProvider<UserInfoModel?>.value(value: AuthService().user, initialData: null,), //initial value will be NULL!!! check for it
-        ChangeNotifierProvider(create:  (_) => fileManager),
+        StreamProvider<UserInfoModel?>.value(
+          value: AuthService().user,
+          initialData: null,
+        ), //initial value will be NULL!!! check for it
+        ChangeNotifierProvider(create: (_) => fileManager),
       ],
       child: FutureBuilder(
           future: _firebaseApp,
           builder: (context, snapshot) {
-            if(snapshot.hasError)
-            {
+            if (snapshot.hasError) {
               print("Error initializing firebase ${snapshot.error.toString()}");
               //TODO: make a better error screen
               return Text("Something went wrong");
-            }
-            else if(snapshot.hasData){
+            } else if (snapshot.hasData) {
               print("Connected to firebase.");
               return MaterialApp(
                 themeMode: ThemeMode.dark,
@@ -65,11 +65,9 @@ class MonsoomerApp extends StatelessWidget {
                   // LoadingScreen.id: (context) => LoadingScreen(),
                   // LoginScreen.id: (context) => LoginScreen(),
                   // RegistrationScreen.id: (context) => RegistrationScreen(),
-
                 },
               );
-            }
-            else {
+            } else {
               return Center(
                 child: CircularProgressIndicator(),
               );
@@ -78,5 +76,7 @@ class MonsoomerApp extends StatelessWidget {
     );
   }
 }
+
+//TODO: check to make sure an item isn't already in a list when adding
 
 //flutter pub run build_runner build

@@ -92,7 +92,6 @@ class APIService {
     var theData = await getDetailedDataFromID(id);
     SeriesDetailsFromAPI temp = SeriesDetailsFromAPI();
     if (theData['Response'] == 'True') {
-
       temp = SeriesDetailsFromAPI(
         title: theData['Title'],
         year: theData['Year'],
@@ -122,8 +121,7 @@ class APIService {
   }
 
   Future getDetailedDataFromID(String id) async {
-
-    https://movie-database-imdb-alternative.p.rapidapi.com/?r=json&i=tt0149460
+    https: //movie-database-imdb-alternative.p.rapidapi.com/?r=json&i=tt0149460
 
     final String url =
         'https://movie-database-imdb-alternative.p.rapidapi.com/?r=json&i=';
